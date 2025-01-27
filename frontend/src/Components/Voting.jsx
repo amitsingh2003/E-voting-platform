@@ -54,7 +54,7 @@ const VotingDashboard = () => {
   useEffect(() => {
     const fetchCandidates = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/candidates");
+        const response = await axios.get("https://e-voting-platform.onrender.com/api/candidates");
         setCandidates(response.data);
         setIsLoading(false);
       } catch (error) {
@@ -78,7 +78,7 @@ const VotingDashboard = () => {
     }
 
     try {
-      await axios.post("http://localhost:5000/api/vote", {
+      await axios.post("https://e-voting-platform.onrender.com/api/vote", {
         email: userEmail,
         candidateId: selectedCandidate._id,
       });

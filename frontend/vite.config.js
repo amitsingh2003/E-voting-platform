@@ -10,7 +10,7 @@ export default defineConfig({
     https: true, // Enables HTTPS
     proxy: {
       '/api': {
-        target: 'http://localhost:5000', // Backend server
+        target: 'https://e-voting-platform.onrender.com', // Backend server
         changeOrigin: true,
         secure: false, // Set to true if your backend uses a trusted certificate
       },

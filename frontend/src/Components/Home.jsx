@@ -44,8 +44,8 @@ const EVotingInterface = () => {
       }
 
       const endpoint = userType === "admin"
-        ? "http://localhost:5000/api/register-admin"
-        : "http://localhost:5000/api/register-voter";
+        ? "https://e-voting-platform.onrender.com/api/register-admin"
+        : "https://e-voting-platform.onrender.com/api/register-voter";
 
       const response = await axios.post(endpoint, {
         commonName,
