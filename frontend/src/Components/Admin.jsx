@@ -70,9 +70,9 @@ const AdminDashboard = () => {
   const fetchData = async () => {
     try {
       const [usersRes, candidatesRes, resultsRes] = await Promise.all([
-        fetch("/api/users"),
-        fetch("/api/candidates"),
-        fetch("/api/results"),
+        fetch("https://e-voting-platform.onrender.com/api/users"),
+        fetch("https://e-voting-platform.onrender.com/api/candidates"),
+        fetch("https://e-voting-platform.onrender.com/api/results"),
       ]);
 
       const users = await usersRes.json();
