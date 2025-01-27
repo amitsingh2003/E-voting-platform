@@ -76,6 +76,7 @@ app.use(
       "http://127.0.0.1:5173",
       "https://localhost:5173",
       "https://127.0.0.1:5173",
+      "https://e-voting-platform-f.onrender.com"
     ],
     credentials: true,
   })
