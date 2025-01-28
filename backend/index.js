@@ -131,32 +131,21 @@ app.post("/api/register-admin", async (req, res, next) => {
       return res.status(400).json({ error: "commonName and email are required" });
     }
 
-    // Define the allowed admin emails
     const ADMIN_EMAILS = ["admin@evoting.com", "root@evoting.com"];
 
     if (!ADMIN_EMAILS.includes(email)) {
       return res.status(403).json({ error: "Unauthorized Admin Registration" });
     }
 
-    // Allow multiple registrations for the special admin emails
-    let newAdmin;
-    if (ADMIN_EMAILS.includes(email)) {
-      // Check if the admin with the same email and commonName already exists
-      newAdmin = new Votingadmin({
-        username: commonName,
-        email,
-      });
-    } else {
-      // Check if the admin is already registered (for non-allowed admin emails)
-      const existingAdmin = await Votingadmin.findOne({ email });
-      if (existingAdmin) {
-        return res.status(400).json({ error: "Admin already registered" });
-      }
-      newAdmin = new Votingadmin({
-        username: commonName,
-        email,
-      });
+    const existingAdmin = await Votingadmin.findOne({ email });
+    if (existingAdmin) {
+      return res.status(400).json({ error: "Admin already registered" });
     }
+
+    const newAdmin = new Votingadmin({
+      username: commonName,
+      email,
+    });
 
     await newAdmin.save();
     res.status(200).json({ message: "Admin registered successfully" });
@@ -164,7 +153,6 @@ app.post("/api/register-admin", async (req, res, next) => {
     next(error);
   }
 });
-
 
 // Get All Candidates
 app.get("/api/candidates", async (req, res, next) => {
