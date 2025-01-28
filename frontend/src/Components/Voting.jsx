@@ -17,7 +17,7 @@ import {
   Users,
   Vote as VoteIcon
 } from "lucide-react";
-import { useLocation } from "react-router-dom";
+
 
 const VotingDashboard = () => {
   const [candidates, setCandidates] = useState([]);
@@ -29,8 +29,6 @@ const VotingDashboard = () => {
   const [userEmail, setUserEmail] = useState(null);
   const [userName, setUserName] = useState(null);
   const [activeSection, setActiveSection] = useState("candidates");
-
-  const location = useLocation();
 
   useEffect(() => {
     const savedUserEmail = localStorage.getItem("userEmail");

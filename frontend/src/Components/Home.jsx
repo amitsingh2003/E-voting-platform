@@ -205,7 +205,7 @@ const EVotingInterface = () => {
 
               <div className="space-y-4">
                 <div>
-                  <label className="block text-gray-700 mb-2 flex items-center">
+                  <label className=" text-gray-700 mb-2 flex items-center">
                     <UserPlus className="mr-2 text-blue-500" />
                     Full Name
                   </label>
@@ -219,7 +219,7 @@ const EVotingInterface = () => {
                 </div>
 
                 <div>
-                  <label className="block text-gray-700 mb-2 flex items-center">
+                  <label className=" text-gray-700 mb-2 flex items-center">
                     <Mail className="mr-2 text-purple-500" />
                     Email Address
                   </label>
