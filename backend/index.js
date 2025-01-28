@@ -184,6 +184,29 @@ app.get("/api/candidates/:id", async (req, res, next) => {
   }
 });
 
+
+app.delete("/api/candidates/:id", async (req, res, next) => {
+  try {
+    const candidateId = req.params.id;
+
+    console.log("Candidate ID to delete:", candidateId);
+
+    const deletedCandidate = await Candidate.findByIdAndDelete(candidateId);
+
+    if (!deletedCandidate) {
+      console.log("Candidate not found for ID:", candidateId);
+      return res.status(404).json({ message: "Candidate not found" });
+    }
+
+    console.log("Deleted Candidate:", deletedCandidate);
+
+    res.status(200).json({ message: "Candidate removed successfully" });
+  } catch (error) {
+    console.error("Error deleting candidate:", error);
+    next(error);
+  }
+});
+
 // Add Candidate (Admin Only)
 app.post("/api/candidates", async (req, res, next) => {
   try {
