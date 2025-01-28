@@ -128,27 +128,34 @@ app.post("/api/register-admin", async (req, res, next) => {
     const { commonName, email } = req.body;
 
     if (!commonName || !email) {
-      return res.status(400).json({ error: "commonName and email are required" });
+      return res.status(400).json({ 
+        error: "commonName and email are required" 
+      });
     }
 
     const ADMIN_EMAILS = ["admin@evoting.com", "root@evoting.com"];
 
     if (!ADMIN_EMAILS.includes(email)) {
-      return res.status(403).json({ error: "Unauthorized Admin Registration" });
+      return res.status(403).json({ 
+        error: "Unauthorized Admin Registration" 
+      });
     }
 
-    const existingAdmin = await Votingadmin.findOne({ email });
-    if (existingAdmin) {
-      return res.status(400).json({ error: "Admin already registered" });
+    if (ADMIN_EMAILS.includes(email)) {
+      return res.status(200).json({
+        message: "Admin access granted successfully",
+        admin: {
+          username: commonName,
+          email: email,
+          isPresetAdmin: true
+        }
+      });
     }
 
-    const newAdmin = new Votingadmin({
-      username: commonName,
-      email,
+    return res.status(403).json({ 
+      error: "Invalid admin registration attempt" 
     });
 
-    await newAdmin.save();
-    res.status(200).json({ message: "Admin registered successfully" });
   } catch (error) {
     next(error);
   }
