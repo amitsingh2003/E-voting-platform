@@ -21,9 +21,6 @@
   <a href="#📞-support">Support</a>
 </p>
 
-<p align="center">
-  <img src="/api/placeholder/800/400" alt="E-Voting Platform Demo">
-</p>
 
 ## ✨ Key Features
 
