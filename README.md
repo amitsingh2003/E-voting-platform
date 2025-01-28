@@ -18,7 +18,6 @@
   <a href="#🚀-getting-started">Getting Started</a> •
   <a href="#💻-usage">Usage</a> •
   <a href="#🔒-security">Security</a> •
-  <a href="#📞-support">Support</a>
 </p>
 
 
