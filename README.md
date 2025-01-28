@@ -5,12 +5,13 @@
 </h1>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Platform-Web-blue?style=for-the-badge&logo=web" alt="Platform">
-  <img src="https://img.shields.io/badge/Status-Active-success?style=for-the-badge" alt="Status">
-  <img src="https://img.shields.io/badge/Version-1.0-orange?style=for-the-badge" alt="Version">
+  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React">
+  <img src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.js">
+  <img src="https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white" alt="Express.js">
+  <img src="https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white" alt="MongoDB">
 </p>
 
-<h4 align="center">A secure and modern electronic voting platform built with cutting-edge technology.</h4>
+<h4 align="center">A secure and modern electronic voting platform built with MERN Stack.</h4>
 
 <p align="center">
   <a href="#✨-key-features">Key Features</a> •
@@ -45,9 +46,9 @@
 ### Prerequisites
 
 Before you begin, ensure you have installed:
-- [List your requirements]
-- [Database requirements]
-- [Other dependencies]
+- Node.js (v14 or higher)
+- MongoDB
+- npm (Node Package Manager)
 
 ### Installation
 
@@ -55,15 +56,23 @@ Before you begin, ensure you have installed:
 # Clone the repository
 git clone [your-repo-url]
 
-# Navigate to project directory
-cd e-voting-platform
+# Install Backend Dependencies
+cd backend
+npm i
 
-# Install dependencies
-[your-install-command]
+# Start Backend Server
+npm start
 
-# Start the application
-[your-start-command]
+# Open a new terminal and install Frontend Dependencies
+cd frontend
+npm i
+
+# Start Frontend Development Server
+npm run dev
 ```
+
+The frontend will be running on `http://localhost:5173` (or your configured port)
+The backend will be running on `http://localhost:3000` (or your configured port)
 
 ## 💻 Usage
 
@@ -109,13 +118,21 @@ Admin Credentials:
 
 ## 🛠️ Tech Stack
 
-<p align="center">
-  <img src="https://img.shields.io/badge/frontend-tech-blue?style=for-the-badge" alt="Frontend">
-  <img src="https://img.shields.io/badge/backend-tech-green?style=for-the-badge" alt="Backend">
-  <img src="https://img.shields.io/badge/database-tech-red?style=for-the-badge" alt="Database">
-</p>
+### Frontend
+- React.js
+- React Router DOM
+- Axios for API calls
+- Modern UI/UX with responsive design
 
-## 📈 Project Stats
+### Backend
+- Node.js
+- Express.js
+- MongoDB for database
+- JWT for authentication
+
+### Database
+- MongoDB Atlas
+- Mongoose ODM
 
 <p align="center">
   <img src="https://img.shields.io/github/stars/yourusername/e-voting?style=for-the-badge" alt="Stars">
