@@ -42,12 +42,10 @@ const AdminDashboard = () => {
     },
   });
 
-  
-    const [isRefreshing, setIsRefreshing] = useState(false);
-  
-    
-
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const [showAddCandidate, setShowAddCandidate] = useState(false);
+  const [showRemoveCandidate, setShowRemoveCandidate] = useState(false);
+  const [selectedCandidate, setSelectedCandidate] = useState(null);
   const [newCandidate, setNewCandidate] = useState({
     name: "",
     photo: "",
@@ -78,9 +76,9 @@ const AdminDashboard = () => {
       const users = await usersRes.json();
       const candidates = await candidatesRes.json();
       const results = await resultsRes.json();
-      setIsRefreshing(true); 
-      await new Promise((resolve) => setTimeout(resolve, 1000)); 
-      setIsRefreshing(false); 
+      setIsRefreshing(true);
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      setIsRefreshing(false);
 
       setData({
         users,
@@ -93,6 +91,40 @@ const AdminDashboard = () => {
       });
     } catch (error) {
       console.error("Error fetching data:", error);
+    }
+  };
+
+  const [error, setError] = useState(null);
+
+  const handleRemoveCandidate = async () => {
+    if (!selectedCandidate) return;
+
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await fetch(
+        `https://e-voting-platform.onrender.com/api/candidates/${selectedCandidate._id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Failed to delete: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      setShowRemoveCandidate(false);
+      setSelectedCandidate(null);
+      await fetchData(); // Refresh the data
+    } catch (error) {
+      console.error("Error removing candidate:", error);
+      setError("Failed to remove candidate. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -144,16 +176,16 @@ const AdminDashboard = () => {
             <span>Add Candidate</span>
           </button>
           <button
-      onClick={fetchData}
-      className="flex items-center cursor-pointer space-x-2 bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition"
-    >
-      <RefreshCcw
-        className={`w-5 h-5 transition-transform ${
-          isRefreshing ? "animate-spin" : ""
-        }`}
-      />
-      <span>Refresh</span>
-    </button>
+            onClick={fetchData}
+            className="flex items-center cursor-pointer space-x-2 bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition"
+          >
+            <RefreshCcw
+              className={`w-5 h-5 transition-transform ${
+                isRefreshing ? "animate-spin" : ""
+              }`}
+            />
+            <span>Refresh</span>
+          </button>
         </div>
       </motion.div>
 
@@ -304,32 +336,55 @@ const AdminDashboard = () => {
               className="border rounded-lg p-4 hover:shadow-lg transition"
               whileHover={{ scale: 1.02 }}
             >
-              <div className="flex items-center space-x-4">
-                <img
-                  src={candidate.photo}
-                  alt={candidate.name}
-                  className="w-16 h-16 rounded-full object-cover"
-                  onError={(e) => {
-                    e.target.src = "https://via.placeholder.com/64";
-                  }}
-                />
-                <div>
-                  <h3 className="font-semibold text-lg">{candidate.name}</h3>
-                  <div className="flex items-center space-x-2">
-                    <img
-                      src={candidate.logo}
-                      alt={candidate.partyName}
-                      className="w-6 h-6"
-                      onError={(e) => {
-                        e.target.src = "https://via.placeholder.com/24";
-                      }}
-                    />
-                    <span className="text-sm text-gray-600">
-                      {candidate.partyName}
-                    </span>
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center space-x-4">
+                  <img
+                    src={candidate.photo}
+                    alt={candidate.name}
+                    className="w-16 h-16 rounded-full object-cover"
+                    onError={(e) => {
+                      e.target.src = "https://via.placeholder.com/64";
+                    }}
+                  />
+                  <div>
+                    <h3 className="font-semibold text-lg">{candidate.name}</h3>
+                    <div className="flex items-center space-x-2">
+                      <img
+                        src={candidate.logo}
+                        alt={candidate.partyName}
+                        className="w-6 h-6"
+                        onError={(e) => {
+                          e.target.src = "https://via.placeholder.com/24";
+                        }}
+                      />
+                      <span className="text-sm text-gray-600">
+                        {candidate.partyName}
+                      </span>
+                    </div>
                   </div>
                 </div>
+                <button
+                  onClick={() => {
+                    setSelectedCandidate(candidate);
+                    setShowRemoveCandidate(true);
+                  }}
+                  className="p-2 text-red-600 hover:bg-red-50 rounded-full transition"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </button>
               </div>
+
               <p className="text-sm text-gray-500 mt-4">
                 {candidate.description}
               </p>
@@ -431,135 +486,212 @@ const AdminDashboard = () => {
               </div>
             </form>
           </motion.div>
-          {/* Registered Voters Table */}
-         
+        </div>
+      )}
+
+      {showRemoveCandidate && selectedCandidate && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="bg-white rounded-lg p-6 max-w-md w-full mx-4"
+          >
+            <h2 className="text-xl font-semibold mb-4">Remove Candidate</h2>
+            {error && (
+              <div className="mb-4 p-3 bg-red-100 text-red-700 rounded">
+                {error}
+              </div>
+            )}
+            <div className="space-y-4">
+              <div className="flex items-center space-x-4">
+                <img
+                  src={selectedCandidate.photo}
+                  alt={selectedCandidate.name}
+                  className="w-20 h-20 rounded-full object-cover"
+                  onError={(e) => {
+                    e.target.src = "https://via.placeholder.com/80";
+                  }}
+                />
+                <div>
+                  <h3 className="font-semibold text-lg">
+                    {selectedCandidate.name}
+                  </h3>
+                  <div className="flex items-center space-x-2">
+                    <img
+                      src={selectedCandidate.logo}
+                      alt={selectedCandidate.partyName}
+                      className="w-6 h-6"
+                      onError={(e) => {
+                        e.target.src = "https://via.placeholder.com/24";
+                      }}
+                    />
+                    <span className="text-sm text-gray-600">
+                      {selectedCandidate.partyName}
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <p className="text-sm text-gray-500">
+                Are you sure you want to remove this candidate? This action
+                cannot be undone.
+              </p>
+              <div className="mt-6 flex justify-end space-x-4">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowRemoveCandidate(false);
+                    setSelectedCandidate(null);
+                    setError(null);
+                  }}
+                  className="px-4 py-2 text-gray-600 hover:text-gray-800"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleRemoveCandidate}
+                  disabled={loading}
+                  className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 disabled:opacity-50"
+                >
+                  {loading ? "Removing..." : "Remove Candidate"}
+                </button>
+              </div>
+            </div>
+          </motion.div>
         </div>
       )}
 
       {/* Registered Voters Table */}
-<motion.div
-  data-aos="fade-up"
-  className="bg-white rounded-lg shadow-md p-6"
->
-  <div className="flex justify-between items-center mb-6">
-    <h2 className="text-xl font-semibold text-gray-800">
-      Registered Voters
-    </h2>
-    <div className="flex items-center space-x-2">
-      <span className="flex items-center space-x-1 text-green-600">
-        <CheckCircle className="w-4 h-4" />
-        <span>{data.stats.votedUsers} Voted</span>
-      </span>
-      <span className="flex items-center space-x-1 text-red-600">
-        <AlertTriangle className="w-4 h-4" />
-        <span>{data.stats.totalUsers - data.stats.votedUsers} Not Voted</span>
-      </span>
-    </div>
-  </div>
-
-  <div className="overflow-x-auto">
-    <table className="w-full">
-      <thead>
-        <tr className="bg-gray-50">
-          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-            <div className="flex items-center space-x-2">
-              <User className="w-4 h-4" />
-              <span>Username</span>
-            </div>
-          </th>
-          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-            <div className="flex items-center space-x-2">
-              <Mail className="w-4 h-4" />
-              <span>Email</span>
-            </div>
-          </th>
-          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-            Registration Date
-          </th>
-          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-            Status
-          </th>
-        </tr>
-      </thead>
-      <tbody className="bg-white divide-y divide-gray-200">
-        {data.users.map((user, index) => (
-          <motion.tr
-            key={index}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.1 }}
-            className="hover:bg-gray-50 transition-colors"
-          >
-            <td className="px-6 py-4 whitespace-nowrap">
-              <div className="flex items-center">
-                <div className="flex-shrink-0 h-10 w-10">
-                  <div className="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center">
-                    <User className="h-6 w-6 text-gray-500" />
-                  </div>
-                </div>
-                <div className="ml-4">
-                  <div className="text-sm font-medium text-gray-900">
-                    {user.username}
-                  </div>
-                </div>
-              </div>
-            </td>
-            <td className="px-6 py-4 whitespace-nowrap">
-              <div className="text-sm text-gray-900">{user.email}</div>
-            </td>
-            <td className="px-6 py-4 whitespace-nowrap">
-              <div className="text-sm text-gray-500">
-                {new Date(user.createdAt || Date.now()).toLocaleDateString()}
-              </div>
-            </td>
-            <td className="px-6 py-4 whitespace-nowrap">
-              <span
-                className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${
-                  user.hasVoted
-                    ? 'bg-green-100 text-green-800'
-                    : 'bg-red-100 text-red-800'
-                }`}
-              >
-                <span className={`w-2 h-2 mr-2 rounded-full ${
-                  user.hasVoted ? 'bg-green-400' : 'bg-red-400'
-                }`}></span>
-                {user.hasVoted ? 'Voted' : 'Not Voted'}
+      <motion.div
+        data-aos="fade-up"
+        className="bg-white rounded-lg shadow-md p-6"
+      >
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-xl font-semibold text-gray-800">
+            Registered Voters
+          </h2>
+          <div className="flex items-center space-x-2">
+            <span className="flex items-center space-x-1 text-green-600">
+              <CheckCircle className="w-4 h-4" />
+              <span>{data.stats.votedUsers} Voted</span>
+            </span>
+            <span className="flex items-center space-x-1 text-red-600">
+              <AlertTriangle className="w-4 h-4" />
+              <span>
+                {data.stats.totalUsers - data.stats.votedUsers} Not Voted
               </span>
-            </td>
-          </motion.tr>
-        ))}
-      </tbody>
-    </table>
+            </span>
+          </div>
+        </div>
 
-    {/* Empty State */}
-    {data.users.length === 0 && (
-      <div className="text-center py-12">
-        <Users className="mx-auto h-12 w-12 text-gray-400" />
-        <h3 className="mt-2 text-sm font-medium text-gray-900">No users found</h3>
-        <p className="mt-1 text-sm text-gray-500">
-          No registered voters are available at the moment.
-        </p>
-      </div>
-    )}
-  </div>
+        <div className="overflow-x-auto">
+          <table className="w-full">
+            <thead>
+              <tr className="bg-gray-50">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <div className="flex items-center space-x-2">
+                    <User className="w-4 h-4" />
+                    <span>Username</span>
+                  </div>
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <div className="flex items-center space-x-2">
+                    <Mail className="w-4 h-4" />
+                    <span>Email</span>
+                  </div>
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Registration Date
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Status
+                </th>
+              </tr>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200">
+              {data.users.map((user, index) => (
+                <motion.tr
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  className="hover:bg-gray-50 transition-colors"
+                >
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="flex items-center">
+                      <div className="flex-shrink-0 h-10 w-10">
+                        <div className="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center">
+                          <User className="h-6 w-6 text-gray-500" />
+                        </div>
+                      </div>
+                      <div className="ml-4">
+                        <div className="text-sm font-medium text-gray-900">
+                          {user.username}
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="text-sm text-gray-900">{user.email}</div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="text-sm text-gray-500">
+                      {new Date(
+                        user.createdAt || Date.now()
+                      ).toLocaleDateString()}
+                    </div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <span
+                      className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${
+                        user.hasVoted
+                          ? "bg-green-100 text-green-800"
+                          : "bg-red-100 text-red-800"
+                      }`}
+                    >
+                      <span
+                        className={`w-2 h-2 mr-2 rounded-full ${
+                          user.hasVoted ? "bg-green-400" : "bg-red-400"
+                        }`}
+                      ></span>
+                      {user.hasVoted ? "Voted" : "Not Voted"}
+                    </span>
+                  </td>
+                </motion.tr>
+              ))}
+            </tbody>
+          </table>
 
-  {/* Pagination (Optional) */}
-  {data.users.length > 0 && (
-    <div className="mt-4 flex items-center justify-between">
-      <div className="text-sm text-gray-500">
-        Showing {data.users.length} users
-      </div>
-      <div className="flex items-center space-x-2">
-        <button className="px-3 py-1 border rounded hover:bg-gray-50">
-          Previous
-        </button>
-        <button className="px-3 py-1 border rounded hover:bg-gray-50">
-          Next
-        </button>
-      </div>
-    </div>
-  )}
-</motion.div>
+          {/* Empty State */}
+          {data.users.length === 0 && (
+            <div className="text-center py-12">
+              <Users className="mx-auto h-12 w-12 text-gray-400" />
+              <h3 className="mt-2 text-sm font-medium text-gray-900">
+                No users found
+              </h3>
+              <p className="mt-1 text-sm text-gray-500">
+                No registered voters are available at the moment.
+              </p>
+            </div>
+          )}
+        </div>
+
+        {/* Pagination (Optional) */}
+        {data.users.length > 0 && (
+          <div className="mt-4 flex items-center justify-between">
+            <div className="text-sm text-gray-500">
+              Showing {data.users.length} users
+            </div>
+            <div className="flex items-center space-x-2">
+              <button className="px-3 py-1 border rounded hover:bg-gray-50">
+                Previous
+              </button>
+              <button className="px-3 py-1 border rounded hover:bg-gray-50">
+                Next
+              </button>
+            </div>
+          </div>
+        )}
+      </motion.div>
     </div>
   );
 };
