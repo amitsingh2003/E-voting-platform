@@ -74,23 +74,6 @@ npm run dev
 The frontend will be running on `http://localhost:5173` (or your configured port)
 The backend will be running on `http://localhost:3000` (or your configured port)
 
-## 💻 Usage
-
-### 👤 For Voters
-
-<table>
-  <tr>
-    <td width="50%">
-      <p><strong>Step 1:</strong> Register as Voter</p>
-      <img src="/api/placeholder/400/200" alt="Registration">
-    </td>
-    <td width="50%">
-      <p><strong>Step 2:</strong> Access Dashboard</p>
-      <img src="/api/placeholder/400/200" alt="Dashboard">
-    </td>
-  </tr>
-</table>
-
 ### 👑 For Administrators
 
 ```plaintext
@@ -134,25 +117,10 @@ Admin Credentials:
 - MongoDB Atlas
 - Mongoose ODM
 
-<p align="center">
-  <img src="https://img.shields.io/github/stars/yourusername/e-voting?style=for-the-badge" alt="Stars">
-  <img src="https://img.shields.io/github/forks/yourusername/e-voting?style=for-the-badge" alt="Forks">
-  <img src="https://img.shields.io/github/issues/yourusername/e-voting?style=for-the-badge" alt="Issues">
-</p>
 
-## 📞 Support
+
+
 
 <p align="center">
-  <a href="mailto:your.email@example.com">
-    <img src="https://img.shields.io/badge/Email-Support-red?style=for-the-badge&logo=gmail" alt="Email">
-  </a>
-  <a href="https://github.com/yourusername">
-    <img src="https://img.shields.io/badge/GitHub-Profile-black?style=for-the-badge&logo=github" alt="GitHub">
-  </a>
-</p>
-
----
-
-<p align="center">
-  Made with ❤️ by [Your Name]
+  Made with ❤️ by Amit singh
 </p>
