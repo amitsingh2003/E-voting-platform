@@ -238,7 +238,7 @@ const EVotingInterface = () => {
                 disabled={!commonName || !email}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-lg transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-lg flex items-center justify-center space-x-2"
+                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-lg transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-lg flex items-center justify-center space-x-2 cursor-pointer"
               >
                 <span>{userType === "admin" ? "Register Admin" : "Register Voter"}</span>
                 <ArrowRight size={20} />
@@ -261,7 +261,7 @@ const EVotingInterface = () => {
                 <CheckCircle size={80} className="mx-auto text-green-500" />
               </motion.div>
 
-              <h2 className="text-2xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
+              <h2 className="text-2xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent cursor-pointer">
                 Registration Complete!
               </h2>
 
@@ -273,7 +273,7 @@ const EVotingInterface = () => {
                 onClick={enterVotingDashboard}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full bg-gradient-to-r from-green-500 to-blue-500 text-white py-4 rounded-lg transition duration-300 hover:shadow-lg"
+                className="w-full bg-gradient-to-r from-green-500 to-blue-500 text-white py-4 rounded-lg transition duration-300 hover:shadow-lg couser-pointer"
               >
                 Enter Voting Dashboard
               </motion.button>
