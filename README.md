@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  🗳️ E-Voting Platform
+  🗳️ E-voting platform
   <br>
 </h1>
 
