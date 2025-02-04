@@ -4,20 +4,19 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Toaster, toast } from "react-hot-toast";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { 
-  ArrowRight, 
-  Info, 
-  CheckCircle, 
-  X, 
-  User, 
-  Award, 
-  Shield, 
+import {
+  ArrowRight,
+  Info,
+  CheckCircle,
+  X,
+  User,
+  Award,
+  Shield,
   ChevronRight,
   Clock,
   Users,
-  Vote as VoteIcon
+  Vote as VoteIcon,
 } from "lucide-react";
-
 
 const VotingDashboard = () => {
   const [candidates, setCandidates] = useState([]);
@@ -52,7 +51,9 @@ const VotingDashboard = () => {
   useEffect(() => {
     const fetchCandidates = async () => {
       try {
-        const response = await axios.get("https://e-voting-platform.onrender.com/api/candidates");
+        const response = await axios.get(
+          "https://e-voting-platform.onrender.com/api/candidates"
+        );
         setCandidates(response.data);
         setIsLoading(false);
       } catch (error) {
@@ -123,24 +124,31 @@ const VotingDashboard = () => {
       whileTap={{ scale: 0.95 }}
       onClick={onClick}
       className={`flex items-center space-x-3 px-6 py-4 rounded-xl transition-all ${
-        active 
-          ? "bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-500/30" 
+        active
+          ? "bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-500/30"
           : "hover:bg-white/5"
       }`}
     >
-      <Icon className={`${active ? "text-blue-400" : "text-gray-400"}`} size={24} />
-      <span className={`${active ? "text-blue-400" : "text-gray-400"} font-medium`}>{label}</span>
+      <Icon
+        className={`${active ? "text-blue-400" : "text-gray-400"}`}
+        size={24}
+      />
+      <span
+        className={`${active ? "text-blue-400" : "text-gray-400"} font-medium`}
+      >
+        {label}
+      </span>
     </motion.button>
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-600 to-slate-900">
       <Toaster position="top-center" />
-      
+
       {/* Navigation Bar */}
       <nav className="fixed top-0 left-0 right-0 bg-black/20 backdrop-blur-lg border-b border-white/10 z-40">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             className="flex items-center space-x-4"
@@ -148,8 +156,8 @@ const VotingDashboard = () => {
             <VoteIcon className="text-blue-400" size={32} />
             <h1 className="text-2xl font-bold text-white">E-Voting Platform</h1>
           </motion.div>
-          
-          <motion.div 
+
+          <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             className="flex items-center space-x-6"
@@ -166,47 +174,67 @@ const VotingDashboard = () => {
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <motion.header
-      initial={{ opacity: 0, y: -30 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="text-center px-4 md:px-6 mb-8 md:mb-16 space-y-4 md:space-y-6"
-    >
-      <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">
-        Election 2024
-      </h1>
-      
-      <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed px-4">
-        Secure your future with a click. Every vote counts in shaping tomorrow.
-      </p>
+            initial={{ opacity: 0, y: -30 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-center px-4 md:px-6 mb-8 md:mb-16 space-y-4 md:space-y-6"
+          >
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-violet-500">
+              Election 2024
+            </h1>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 max-w-3xl mx-auto mt-8">
-        <motion.div
-          whileHover={{ scale: 1.05 }}
-          className="bg-white/10 backdrop-blur-lg rounded-2xl p-4 md:p-6 border border-white/20"
-        >
-          <Users className="text-blue-400 mb-2 mx-auto md:mx-0" size={28} />
-          <div className="text-2xl md:text-3xl font-bold text-white mb-1">{candidates.length}</div>
-          <div className="text-sm md:text-base text-gray-400">Candidates</div>
-        </motion.div>
+            <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed px-4">
+              Secure your future with a click. Every vote counts in shaping
+              tomorrow.
+            </p>
 
-        <motion.div
-          whileHover={{ scale: 1.05 }}
-          className="bg-white/10 backdrop-blur-lg rounded-2xl p-4 md:p-6 border border-white/20"
-        >
-          <Clock className="text-purple-400 mb-2 mx-auto md:mx-0" size={28} />
-          <div className="text-2xl md:text-3xl font-bold text-white mb-1">24h</div>
-          <div className="text-sm md:text-base text-gray-400">Remaining</div>
-        </motion.div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 max-w-3xl mx-auto mt-8">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                className="bg-white/10 backdrop-blur-lg rounded-2xl p-4 md:p-6 border border-white/20"
+              >
+                <Users
+                  className="text-blue-400 mb-2 mx-auto md:mx-0"
+                  size={28}
+                />
+                <div className="text-2xl md:text-3xl font-bold text-white mb-1">
+                  {candidates.length}
+                </div>
+                <div className="text-sm md:text-base text-gray-400">
+                  Candidates
+                </div>
+              </motion.div>
 
-        <motion.div
-          whileHover={{ scale: 1.05 }}
-          className="bg-white/10 backdrop-blur-lg rounded-2xl p-4 md:p-6 border border-white/20 sm:col-span-2 md:col-span-1"
-        >
-          <Shield className="text-pink-400 mb-2 mx-auto md:mx-0" size={28} />
-          <div className="text-2xl md:text-3xl font-bold text-white mb-1">100%</div>
-          <div className="text-sm md:text-base text-gray-400">Secure</div>
-        </motion.div>
-      </div>
-    </motion.header>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                className="bg-white/10 backdrop-blur-lg rounded-2xl p-4 md:p-6 border border-white/20"
+              >
+                <Clock
+                  className="text-purple-400 mb-2 mx-auto md:mx-0"
+                  size={28}
+                />
+                <div className="text-2xl md:text-3xl font-bold text-white mb-1">
+                  24h
+                </div>
+                <div className="text-sm md:text-base text-gray-400">
+                  Remaining
+                </div>
+              </motion.div>
+
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                className="bg-white/10 backdrop-blur-lg rounded-2xl p-4 md:p-6 border border-white/20 sm:col-span-2 md:col-span-1"
+              >
+                <Shield
+                  className="text-pink-400 mb-2 mx-auto md:mx-0"
+                  size={28}
+                />
+                <div className="text-2xl md:text-3xl font-bold text-white mb-1">
+                  100%
+                </div>
+                <div className="text-sm md:text-base text-gray-400">Secure</div>
+              </motion.div>
+            </div>
+          </motion.header>
 
           {/* Candidates Grid */}
           <div className="grid md:grid-cols-3 gap-8">
@@ -227,7 +255,7 @@ const VotingDashboard = () => {
                     className="w-full h-80 object-cover filter brightness-90 group-hover:brightness-100 transition-all duration-300"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent"></div>
-                  
+
                   <motion.button
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
@@ -238,7 +266,9 @@ const VotingDashboard = () => {
                   </motion.button>
 
                   <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                    <h2 className="text-3xl font-bold mb-2">{candidate.name}</h2>
+                    <h2 className="text-3xl font-bold mb-2">
+                      {candidate.name}
+                    </h2>
                     <div className="flex items-center space-x-2 text-blue-400">
                       <Award size={20} />
                       <span>{candidate.partyName}</span>
@@ -255,10 +285,13 @@ const VotingDashboard = () => {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={() => openVoteConfirmation(candidate)}
-                    className="w-full py-4 rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white transition-all flex items-center justify-center space-x-2 group"
+                    className="w-full py-4 rounded-xl bg-gradient-to-r from-pink-500 via-purple-500 to-violet-500 hover:from-blue-600 hover:to-purple-600 text-white transition-all flex items-center justify-center space-x-2 group"
                   >
                     <span>Cast Your Vote</span>
-                    <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight
+                      size={20}
+                      className="group-hover:translate-x-1 transition-transform"
+                    />
                   </motion.button>
                 </div>
               </motion.div>
@@ -282,12 +315,14 @@ const VotingDashboard = () => {
                 >
                   <div className="relative">
                     <img
-                      src={activeModalCandidate.photo || activeModalCandidate.logo}
+                      src={
+                        activeModalCandidate.photo || activeModalCandidate.logo
+                      }
                       alt={activeModalCandidate.name}
                       className="w-full h-96 object-cover brightness-75 rounded-t-3xl"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent"></div>
-                    
+
                     <motion.button
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
@@ -303,7 +338,9 @@ const VotingDashboard = () => {
                       </h2>
                       <div className="flex items-center space-x-2 text-blue-400">
                         <Award size={24} />
-                        <span className="text-xl">{activeModalCandidate.partyName}</span>
+                        <span className="text-xl">
+                          {activeModalCandidate.partyName}
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -323,94 +360,113 @@ const VotingDashboard = () => {
                         openVoteConfirmation(activeModalCandidate);
                       }}
                       className="w-full py-4 rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white transition-all flex items-center justify-center space-x-2 group"
+                    >
+                      <span>Vote for {activeModalCandidate.name}</span>
+                      <ArrowRight
+                        size={20}
+                        className="group-hover:translate-x-1 transition-transform"
+                      />
+                    </motion.button>
+                  </div>
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* Vote Confirmation Modal */}
+          <AnimatePresence>
+            {selectedCandidate && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
+              >
+                <motion.div
+                  initial={{ scale: 0.9, y: 20 }}
+                  animate={{ scale: 1, y: 0 }}
+                  exit={{ scale: 0.9, y: 20 }}
+                  className="bg-gradient-to-br from-gray-900 to-black rounded-3xl max-w-lg w-full p-8 border border-white/20"
+                >
+                  <div className="text-center space-y-6">
+                    <div className="mx-auto w-20 h-20 rounded-full bg-blue-500/20 flex items-center justify-center">
+                      <CheckCircle className="text-blue-400" size={40} />
+                    </div>
+
+                    <h2 className="text-3xl font-bold text-white">
+                      Confirm Your Vote
+                    </h2>
+
+                    <p className="text-gray-300">
+                      You are about to cast your vote for{" "}
+                      <span className="text-blue-400 font-semibold">
+                        {selectedCandidate.name}
+                      </span>
+                      . This action cannot be undone.
+                    </p>
+
+                    <div className="bg-white/10 rounded-2xl p-6 space-y-4">
+                      <div className="flex items-center justify-between text-gray-300">
+                        <span>Candidate:</span>
+                        <span className="font-semibold text-white">
+                          {selectedCandidate.name}
+                        </span>
+                      </div>
+                      <div className="flex items-center justify-between text-gray-300">
+                        <span>Party:</span>
+                        <span className="font-semibold text-white">
+                          {selectedCandidate.partyName}
+                        </span>
+                      </div>
+                      <div className="flex items-center justify-between text-gray-300">
+                        <span>Your Email:</span>
+                        <span className="font-semibold text-white">
+                          {userEmail}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="flex space-x-4">
+                      <motion.button
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        onClick={() => setSelectedCandidate(null)}
+                        className="flex-1 py-4 rounded-xl bg-white/10 hover:bg-white/20 text-white transition-all"
                       >
-                        <span>Vote for {activeModalCandidate.name}</span>
-                        <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                        Cancel
+                      </motion.button>
+
+                      <motion.button
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        onClick={() =>
+                          handleConfirmVote(selectedCandidate, userEmail)
+                        }
+                        className="flex-1 py-4 rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white transition-all flex items-center justify-center space-x-2 group"
+                      >
+                        <span>Confirm Vote</span>
+                        <ChevronRight
+                          size={20}
+                          className="group-hover:translate-x-1 transition-transform"
+                        />
                       </motion.button>
                     </div>
-                  </motion.div>
+                  </div>
                 </motion.div>
-              )}
-            </AnimatePresence>
-  
-            {/* Vote Confirmation Modal */}
-            <AnimatePresence>
-              {selectedCandidate && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
-                >
-                  <motion.div
-                    initial={{ scale: 0.9, y: 20 }}
-                    animate={{ scale: 1, y: 0 }}
-                    exit={{ scale: 0.9, y: 20 }}
-                    className="bg-gradient-to-br from-gray-900 to-black rounded-3xl max-w-lg w-full p-8 border border-white/20"
-                  >
-                    <div className="text-center space-y-6">
-                      <div className="mx-auto w-20 h-20 rounded-full bg-blue-500/20 flex items-center justify-center">
-                        <CheckCircle className="text-blue-400" size={40} />
-                      </div>
-  
-                      <h2 className="text-3xl font-bold text-white">Confirm Your Vote</h2>
-                      
-                      <p className="text-gray-300">
-                        You are about to cast your vote for <span className="text-blue-400 font-semibold">{selectedCandidate.name}</span>. 
-                        This action cannot be undone.
-                      </p>
-  
-                      <div className="bg-white/10 rounded-2xl p-6 space-y-4">
-                        <div className="flex items-center justify-between text-gray-300">
-                          <span>Candidate:</span>
-                          <span className="font-semibold text-white">{selectedCandidate.name}</span>
-                        </div>
-                        <div className="flex items-center justify-between text-gray-300">
-                          <span>Party:</span>
-                          <span className="font-semibold text-white">{selectedCandidate.partyName}</span>
-                        </div>
-                        <div className="flex items-center justify-between text-gray-300">
-                          <span>Your Email:</span>
-                          <span className="font-semibold text-white">{userEmail}</span>
-                        </div>
-                      </div>
-  
-                      <div className="flex space-x-4">
-                        <motion.button
-                          whileHover={{ scale: 1.02 }}
-                          whileTap={{ scale: 0.98 }}
-                          onClick={() => setSelectedCandidate(null)}
-                          className="flex-1 py-4 rounded-xl bg-white/10 hover:bg-white/20 text-white transition-all"
-                        >
-                          Cancel
-                        </motion.button>
-  
-                        <motion.button
-                          whileHover={{ scale: 1.02 }}
-                          whileTap={{ scale: 0.98 }}
-                          onClick={() => handleConfirmVote(selectedCandidate, userEmail)}
-                          className="flex-1 py-4 rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white transition-all flex items-center justify-center space-x-2 group"
-                        >
-                          <span>Confirm Vote</span>
-                          <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
-                        </motion.button>
-                      </div>
-                    </div>
-                  </motion.div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-  
-            {/* Error Message */}
-            {error && (
-              <div className="text-center mt-8">
-                <p className="text-red-400">{error}</p>
-              </div>
+              </motion.div>
             )}
-          </div>
+          </AnimatePresence>
+
+          {/* Error Message */}
+          {error && (
+            <div className="text-center mt-8">
+              <p className="text-red-400">{error}</p>
+            </div>
+          )}
         </div>
       </div>
-    );
-  };
-  
-  export default VotingDashboard;
+    </div>
+  );
+};
+
+export default VotingDashboard;
