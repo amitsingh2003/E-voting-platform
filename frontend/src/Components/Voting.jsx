@@ -166,47 +166,47 @@ const VotingDashboard = () => {
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <motion.header
-            initial={{ opacity: 0, y: -30 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-center mb-16 space-y-6"
-          >
-            <h1 className="text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">
-              Election 2024
-            </h1>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-              Secure your future with a click. Every vote counts in shaping tomorrow.
-            </p>
-            
-            {/* Stats Section */}
-            <div className="grid grid-cols-3 gap-6 max-w-3xl mx-auto mt-8">
-              <motion.div 
-                whileHover={{ scale: 1.05 }}
-                className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20"
-              >
-                <Users className="text-blue-400 mb-2" size={28} />
-                <div className="text-3xl font-bold text-white mb-1">{candidates.length}</div>
-                <div className="text-gray-400">Candidates</div>
-              </motion.div>
-              
-              <motion.div 
-                whileHover={{ scale: 1.05 }}
-                className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20"
-              >
-                <Clock className="text-purple-400 mb-2" size={28} />
-                <div className="text-3xl font-bold text-white mb-1">24h</div>
-                <div className="text-gray-400">Remaining</div>
-              </motion.div>
-              
-              <motion.div 
-                whileHover={{ scale: 1.05 }}
-                className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20"
-              >
-                <Shield className="text-pink-400 mb-2" size={28} />
-                <div className="text-3xl font-bold text-white mb-1">100%</div>
-                <div className="text-gray-400">Secure</div>
-              </motion.div>
-            </div>
-          </motion.header>
+      initial={{ opacity: 0, y: -30 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="text-center px-4 md:px-6 mb-8 md:mb-16 space-y-4 md:space-y-6"
+    >
+      <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">
+        Election 2024
+      </h1>
+      
+      <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed px-4">
+        Secure your future with a click. Every vote counts in shaping tomorrow.
+      </p>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 max-w-3xl mx-auto mt-8">
+        <motion.div
+          whileHover={{ scale: 1.05 }}
+          className="bg-white/10 backdrop-blur-lg rounded-2xl p-4 md:p-6 border border-white/20"
+        >
+          <Users className="text-blue-400 mb-2 mx-auto md:mx-0" size={28} />
+          <div className="text-2xl md:text-3xl font-bold text-white mb-1">{candidates.length}</div>
+          <div className="text-sm md:text-base text-gray-400">Candidates</div>
+        </motion.div>
+
+        <motion.div
+          whileHover={{ scale: 1.05 }}
+          className="bg-white/10 backdrop-blur-lg rounded-2xl p-4 md:p-6 border border-white/20"
+        >
+          <Clock className="text-purple-400 mb-2 mx-auto md:mx-0" size={28} />
+          <div className="text-2xl md:text-3xl font-bold text-white mb-1">24h</div>
+          <div className="text-sm md:text-base text-gray-400">Remaining</div>
+        </motion.div>
+
+        <motion.div
+          whileHover={{ scale: 1.05 }}
+          className="bg-white/10 backdrop-blur-lg rounded-2xl p-4 md:p-6 border border-white/20 sm:col-span-2 md:col-span-1"
+        >
+          <Shield className="text-pink-400 mb-2 mx-auto md:mx-0" size={28} />
+          <div className="text-2xl md:text-3xl font-bold text-white mb-1">100%</div>
+          <div className="text-sm md:text-base text-gray-400">Secure</div>
+        </motion.div>
+      </div>
+    </motion.header>
 
           {/* Candidates Grid */}
           <div className="grid md:grid-cols-3 gap-8">
